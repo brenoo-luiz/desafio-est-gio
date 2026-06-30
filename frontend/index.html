@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Banco — Desafio Técnico</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="app">
+
+  <header class="topbar">
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="16" cy="16" r="14.5" stroke="currentColor" stroke-width="2"/>
+        <path d="M16 8.5V23.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <path d="M11.5 12.5C11.5 10.5 13.3 9.5 16 9.5C18.7 9.5 20 10.7 20 12.2C20 15.2 11.5 14.5 11.5 18.5C11.5 20.3 13.2 21.5 16 21.5C18.5 21.5 20.5 20.5 20.5 18.5"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div class="brand-text">
+        <span class="brand-name">Banco</span>
+        <span class="brand-tag">desafio técnico · agilize</span>
+      </div>
+    </div>
+    <span class="api-pill" id="api-status">verificando API…</span>
+  </header>
+
+  <main class="layout">
+
+    <!-- Coluna da conta -->
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Conta</h2>
+        <button class="link-btn" id="toggle-new-account" type="button">+ nova conta</button>
+      </div>
+
+      <label class="field-label" for="account-select">Selecionar conta</label>
+      <select id="account-select" class="select"></select>
+
+      <div class="balance-card" id="balance-card">
+        <div class="balance-card-row">
+          <span class="account-owner" id="bc-owner">—</span>
+          <span class="type-badge" id="bc-type">—</span>
+        </div>
+        <div class="balance-amount" id="bc-balance">R$ 0,00</div>
+        <div class="balance-rules" id="bc-rules">—</div>
+      </div>
+
+      <form id="new-account-form" class="inline-form hidden">
+        <label class="field-label" for="na-name">Nome do titular</label>
+        <input id="na-name" class="text-input" type="text" placeholder="Ex: Fernanda Reis" required />
+
+        <label class="field-label" for="na-type">Tipo de conta</label>
+        <select id="na-type" class="select">
+          <option value="corrente">Conta Corrente</option>
+          <option value="poupanca">Conta Poupança</option>
+        </select>
+
+        <label class="field-label" for="na-balance">Saldo inicial (R$)</label>
+        <input id="na-balance" class="text-input" type="number" min="0" step="0.01" value="0" />
+
+        <button class="btn btn-secondary" type="submit">Criar conta</button>
+      </form>
+    </section>
+
+    <!-- Coluna das operações -->
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Operação</h2>
+      </div>
+
+      <div class="tabs" role="tablist">
+        <button class="tab active" id="tab-saque" type="button" role="tab" aria-selected="true">Saque</button>
+        <button class="tab" id="tab-transferencia" type="button" role="tab" aria-selected="false">Transferência</button>
+      </div>
+
+      <form id="form-saque" class="op-form">
+        <label class="field-label" for="saque-amount">Valor do saque (R$)</label>
+        <input id="saque-amount" class="text-input mono" type="number" min="0.01" step="0.01" placeholder="0,00" required />
+        <button class="btn btn-primary" type="submit">Confirmar saque</button>
+        <p class="form-error" id="saque-error"></p>
+      </form>
+
+      <form id="form-transferencia" class="op-form hidden">
+        <label class="field-label" for="transf-destino">Conta de destino</label>
+        <select id="transf-destino" class="select"></select>
+
+        <label class="field-label" for="transf-amount">Valor da transferência (R$)</label>
+        <input id="transf-amount" class="text-input mono" type="number" min="0.01" step="0.01" placeholder="0,00" required />
+        <button class="btn btn-primary" type="submit">Confirmar transferência</button>
+        <p class="form-error" id="transf-error"></p>
+      </form>
+    </section>
+
+  </main>
+
+  <!-- Fita de recibos, estilo ATM -->
+  <section class="panel receipts-panel">
+    <div class="panel-head">
+      <h2>Recibos</h2>
+      <button class="link-btn" id="clear-receipts" type="button">limpar</button>
+    </div>
+    <div class="receipts-feed" id="receipts-feed">
+      <p class="receipts-empty" id="receipts-empty">Nenhuma operação ainda. Faça um saque ou uma transferência para ver o recibo aqui.</p>
+    </div>
+  </section>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
